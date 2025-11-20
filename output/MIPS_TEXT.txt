@@ -1,0 +1,454 @@
+.text
+str_concatination:
+str_concatination_Prologue:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	addi $sp, $sp, -4
+	sw $fp, 0($sp)
+	move $fp, $sp
+	addi $sp, $sp, -4
+	sw $t0, 0($sp)
+	addi $sp, $sp, -4
+	sw $t1, 0($sp)
+	addi $sp, $sp, -4
+	sw $t2, 0($sp)
+	addi $sp, $sp, -4
+	sw $t3, 0($sp)
+	addi $sp, $sp, -4
+	sw $t4, 0($sp)
+	addi $sp, $sp, -4
+	sw $t5, 0($sp)
+	addi $sp, $sp, -4
+	sw $t6, 0($sp)
+	addi $sp, $sp, -4
+	sw $t7, 0($sp)
+	addi $sp, $sp, -4
+	sw $t8, 0($sp)
+	addi $sp, $sp, -4
+	sw $t9, 0($sp)
+	lw Temp_36, 8($fp)
+	lw Temp_37, 12($fp)
+	li Temp_38, 0
+Label_8_len_str1_loop:
+	lb Temp_39, 0(Temp_36)
+	beq Temp_39,$zero,Label_9_len_str2_loop
+	addiu Temp_36, Temp_36, 1
+	addiu Temp_38, Temp_38, 1
+	j Label_8_len_str1_loop
+Label_9_len_str2_loop:
+	lb Temp_39, 0(Temp_37)
+	beq Temp_39,$zero,Label_10_allocate_space
+	addiu Temp_37, Temp_37, 1
+	addiu Temp_38, Temp_38, 1
+	j Label_9_len_str2_loop
+Label_10_allocate_space:
+	addiu Temp_38, Temp_38, 1
+	move $a0, Temp_38
+	li $v0, 9
+	syscall
+	move Temp_40, $v0
+	move Temp_41, Temp_40
+	lw Temp_36, 8($fp)
+	lw Temp_37, 12($fp)
+Label_11_write_str1_loop:
+	lb Temp_39, 0(Temp_36)
+	sb Temp_39, 0(Temp_40)
+	beq Temp_39,$zero,Label_12_write_str2_loop
+	addiu Temp_36, Temp_36, 1
+	addiu Temp_40, Temp_40, 1
+	j Label_11_write_str1_loop
+Label_12_write_str2_loop:
+	lb Temp_39, 0(Temp_37)
+	sb Temp_39, 0(Temp_40)
+	beq Temp_39,$zero,Label_13_end_concat
+	addiu Temp_37, Temp_37, 1
+	addiu Temp_40, Temp_40, 1
+	j Label_12_write_str2_loop
+Label_13_end_concat:
+	move $v0, Temp_41
+str_concatination_Epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
+	addi $sp, $sp, 8
+	jr $ra
+str_eq:
+str_eq_Prologue:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	addi $sp, $sp, -4
+	sw $fp, 0($sp)
+	move $fp, $sp
+	addi $sp, $sp, -4
+	sw $t0, 0($sp)
+	addi $sp, $sp, -4
+	sw $t1, 0($sp)
+	addi $sp, $sp, -4
+	sw $t2, 0($sp)
+	addi $sp, $sp, -4
+	sw $t3, 0($sp)
+	addi $sp, $sp, -4
+	sw $t4, 0($sp)
+	addi $sp, $sp, -4
+	sw $t5, 0($sp)
+	addi $sp, $sp, -4
+	sw $t6, 0($sp)
+	addi $sp, $sp, -4
+	sw $t7, 0($sp)
+	addi $sp, $sp, -4
+	sw $t8, 0($sp)
+	addi $sp, $sp, -4
+	sw $t9, 0($sp)
+	lw Temp_42, 8($fp)
+	lw Temp_43, 12($fp)
+	li Temp_44, 1
+Label_16_str_eq_loop:
+	lb Temp_45, 0(Temp_42)
+	lb Temp_46, 0(Temp_43)
+	bne Temp_45,Temp_46,Label_15_AssignZero
+	beq Temp_45,$zero,Label_14_str_eq_end
+	addiu Temp_42, Temp_42, 1
+	addiu Temp_43, Temp_43, 1
+	j Label_16_str_eq_loop
+Label_15_AssignZero:
+	li Temp_44, 0
+Label_14_str_eq_end:
+	move $v0, Temp_44
+str_eq_Epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
+	addi $sp, $sp, 8
+	jr $ra
+exit_div_by_zero:
+exit_div_by_zero_Epilogue:
+	la $a0, string_illegal_div_by_0
+	li $v0, 4
+	syscall
+	li $v0, 10
+	syscall
+exit_invalid_ptr_dref:
+exit_invalid_ptr_dref_Epilogue:
+	la $a0, string_invalid_ptr_dref
+	li $v0, 4
+	syscall
+	li $v0, 10
+	syscall
+exit_out_of_bound:
+exit_out_of_bound_Epilogue:
+	la $a0, string_access_violation
+	li $v0, 4
+	syscall
+	li $v0, 10
+	syscall
+IsPrime:
+IsPrime_Prologue:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	addi $sp, $sp, -4
+	sw $fp, 0($sp)
+	move $fp, $sp
+	addi $sp, $sp, -4
+	sw $t0, 0($sp)
+	addi $sp, $sp, -4
+	sw $t1, 0($sp)
+	addi $sp, $sp, -4
+	sw $t2, 0($sp)
+	addi $sp, $sp, -4
+	sw $t3, 0($sp)
+	addi $sp, $sp, -4
+	sw $t4, 0($sp)
+	addi $sp, $sp, -4
+	sw $t5, 0($sp)
+	addi $sp, $sp, -4
+	sw $t6, 0($sp)
+	addi $sp, $sp, -4
+	sw $t7, 0($sp)
+	addi $sp, $sp, -4
+	sw $t8, 0($sp)
+	addi $sp, $sp, -4
+	sw $t9, 0($sp)
+	addi $sp, $sp, -8
+	li Temp_0, 2
+	sw Temp_0, -44($fp)
+	li Temp_1, 2
+	sw Temp_1, -48($fp)
+Label_1_start:
+	lw Temp_3, -44($fp)
+	lw Temp_4, 8($fp)
+	blt Temp_3,Temp_4,Label_18_AssignOne
+	bge Temp_3,Temp_4,Label_19_AssignZero
+Label_18_AssignOne:
+	li Temp_2, 1
+	j Label_17_end
+Label_19_AssignZero:
+	li Temp_2, 0
+	j Label_17_end
+Label_17_end:
+	beq Temp_2,$zero,Label_0_end
+	li Temp_5, 2
+	sw Temp_5, -48($fp)
+Label_3_start:
+	lw Temp_7, -48($fp)
+	lw Temp_8, 8($fp)
+	blt Temp_7,Temp_8,Label_21_AssignOne
+	bge Temp_7,Temp_8,Label_22_AssignZero
+Label_21_AssignOne:
+	li Temp_6, 1
+	j Label_20_end
+Label_22_AssignZero:
+	li Temp_6, 0
+	j Label_20_end
+Label_20_end:
+	beq Temp_6,$zero,Label_2_end
+	lw Temp_11, -44($fp)
+	lw Temp_12, -48($fp)
+	mul Temp_10,Temp_11,Temp_12
+	li Temp_47, -32768
+	bge Temp_10,Temp_47,Label_23_check_overflow
+	li Temp_10, -32768
+	j Label_24_end
+Label_23_check_overflow:
+	li Temp_47, 32767
+	ble Temp_10,Temp_47,Label_24_end
+	li Temp_10, 32767
+Label_24_end:
+	lw Temp_13, 8($fp)
+	beq Temp_10,Temp_13,Label_26_AssignOne
+	bne Temp_10,Temp_13,Label_27_AssignZero
+Label_26_AssignOne:
+	li Temp_9, 1
+	j Label_25_end
+Label_27_AssignZero:
+	li Temp_9, 0
+	j Label_25_end
+Label_25_end:
+	beq Temp_9,$zero,Label_4_end
+	li Temp_14, 0
+	move $v0, Temp_14
+	j IsPrime_Epilogue
+Label_4_end:
+	lw Temp_16, -48($fp)
+	li Temp_17, 1
+	add Temp_15,Temp_16,Temp_17
+	li Temp_48, -32768
+	bge Temp_15,Temp_48,Label_28_check_overflow
+	li Temp_15, -32768
+	j Label_29_end
+Label_28_check_overflow:
+	li Temp_48, 32767
+	ble Temp_15,Temp_48,Label_29_end
+	li Temp_15, 32767
+Label_29_end:
+	sw Temp_15, -48($fp)
+	j Label_3_start
+Label_2_end:
+	lw Temp_19, -44($fp)
+	li Temp_20, 1
+	add Temp_18,Temp_19,Temp_20
+	li Temp_49, -32768
+	bge Temp_18,Temp_49,Label_30_check_overflow
+	li Temp_18, -32768
+	j Label_31_end
+Label_30_check_overflow:
+	li Temp_49, 32767
+	ble Temp_18,Temp_49,Label_31_end
+	li Temp_18, 32767
+Label_31_end:
+	sw Temp_18, -44($fp)
+	j Label_1_start
+Label_0_end:
+	li Temp_21, 1
+	move $v0, Temp_21
+	j IsPrime_Epilogue
+IsPrime_Epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
+	addi $sp, $sp, 8
+	jr $ra
+PrintPrimes:
+PrintPrimes_Prologue:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	addi $sp, $sp, -4
+	sw $fp, 0($sp)
+	move $fp, $sp
+	addi $sp, $sp, -4
+	sw $t0, 0($sp)
+	addi $sp, $sp, -4
+	sw $t1, 0($sp)
+	addi $sp, $sp, -4
+	sw $t2, 0($sp)
+	addi $sp, $sp, -4
+	sw $t3, 0($sp)
+	addi $sp, $sp, -4
+	sw $t4, 0($sp)
+	addi $sp, $sp, -4
+	sw $t5, 0($sp)
+	addi $sp, $sp, -4
+	sw $t6, 0($sp)
+	addi $sp, $sp, -4
+	sw $t7, 0($sp)
+	addi $sp, $sp, -4
+	sw $t8, 0($sp)
+	addi $sp, $sp, -4
+	sw $t9, 0($sp)
+	addi $sp, $sp, -4
+	lw Temp_22, 8($fp)
+	sw Temp_22, -44($fp)
+Label_6_start:
+	lw Temp_24, -44($fp)
+	lw Temp_26, 12($fp)
+	li Temp_27, 1
+	add Temp_25,Temp_26,Temp_27
+	li Temp_50, -32768
+	bge Temp_25,Temp_50,Label_32_check_overflow
+	li Temp_25, -32768
+	j Label_33_end
+Label_32_check_overflow:
+	li Temp_50, 32767
+	ble Temp_25,Temp_50,Label_33_end
+	li Temp_25, 32767
+Label_33_end:
+	blt Temp_24,Temp_25,Label_35_AssignOne
+	bge Temp_24,Temp_25,Label_36_AssignZero
+Label_35_AssignOne:
+	li Temp_23, 1
+	j Label_34_end
+Label_36_AssignZero:
+	li Temp_23, 0
+	j Label_34_end
+Label_34_end:
+	beq Temp_23,$zero,Label_5_end
+	lw Temp_28, -44($fp)
+	addi $sp, $sp, -4
+	sw Temp_28, 0($sp)
+	jal IsPrime
+	addi $sp, $sp, 4
+	move Temp_29, $v0
+	beq Temp_29,$zero,Label_7_end
+	lw Temp_30, -44($fp)
+	move $a0,Temp_30
+	li $v0,1
+	syscall
+	li $a0,32
+	li $v0,11
+	syscall
+Label_7_end:
+	lw Temp_32, -44($fp)
+	li Temp_33, 1
+	add Temp_31,Temp_32,Temp_33
+	li Temp_51, -32768
+	bge Temp_31,Temp_51,Label_37_check_overflow
+	li Temp_31, -32768
+	j Label_38_end
+Label_37_check_overflow:
+	li Temp_51, 32767
+	ble Temp_31,Temp_51,Label_38_end
+	li Temp_31, 32767
+Label_38_end:
+	sw Temp_31, -44($fp)
+	j Label_6_start
+Label_5_end:
+PrintPrimes_Epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
+	addi $sp, $sp, 8
+	jr $ra
+user_main:
+user_main_Prologue:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	addi $sp, $sp, -4
+	sw $fp, 0($sp)
+	move $fp, $sp
+	addi $sp, $sp, -4
+	sw $t0, 0($sp)
+	addi $sp, $sp, -4
+	sw $t1, 0($sp)
+	addi $sp, $sp, -4
+	sw $t2, 0($sp)
+	addi $sp, $sp, -4
+	sw $t3, 0($sp)
+	addi $sp, $sp, -4
+	sw $t4, 0($sp)
+	addi $sp, $sp, -4
+	sw $t5, 0($sp)
+	addi $sp, $sp, -4
+	sw $t6, 0($sp)
+	addi $sp, $sp, -4
+	sw $t7, 0($sp)
+	addi $sp, $sp, -4
+	sw $t8, 0($sp)
+	addi $sp, $sp, -4
+	sw $t9, 0($sp)
+	li Temp_34, 2
+	li Temp_35, 100
+	addi $sp, $sp, -4
+	sw Temp_35, 0($sp)
+	addi $sp, $sp, -4
+	sw Temp_34, 0($sp)
+	jal PrintPrimes
+	addi $sp, $sp, 8
+user_main_Epilogue:
+	move $sp, $fp
+	lw $t0, -4($sp)
+	lw $t1, -8($sp)
+	lw $t2, -12($sp)
+	lw $t3, -16($sp)
+	lw $t4, -20($sp)
+	lw $t5, -24($sp)
+	lw $t6, -28($sp)
+	lw $t7, -32($sp)
+	lw $t8, -36($sp)
+	lw $t9, -40($sp)
+	lw $fp, 0($sp)
+	lw $ra, 4($sp)
+	addi $sp, $sp, 8
+	jr $ra
+main:
+	jal user_main
+	li $v0, 10
+	syscall
