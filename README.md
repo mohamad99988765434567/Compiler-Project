@@ -150,6 +150,5 @@ A_getX:
 GitHub:  
 https://github.com/mohamad99988765434567
 
-## 📜 License
 
 This project is for educational use in the **Compilation Course**.
